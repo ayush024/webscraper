@@ -1,0 +1,26 @@
+<h2> Check out today's Top Jobs </h2>
+<form action='' method='POST'>
+	{% csrf_token %}
+	<button type='submit'>Extract Data</button>
+</form>
+
+<form action='' method='GET'>
+	{% csrf_token %}
+	<button id='show' onclick='location.href={% url "toplist" %}'>Show list</button>
+	<button id='hide' onclick='location.href={% url "top" %}'>Hide list</button>
+</form>
+
+{% if visibility == 'True' %}
+	{% if jobs %}
+		<ul>
+			{% for job in jobs %}
+				<li>{{job.company}} - {{job.position}}</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+			<strong><p> Sorry, no jobs availabe. </p></strong>
+	{% endif %}
+{% endif %}
+
+
+
