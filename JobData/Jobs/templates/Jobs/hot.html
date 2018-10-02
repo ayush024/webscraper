@@ -1,1 +1,26 @@
-<h2> Today's Hot Jobs </h2>
+<h2> Check out today's Hot Jobs </h2>
+<form action='{% url "hot" %}' method='POST'>
+	{% csrf_token %}
+	<button type='submit'>Extract Data</button>
+</form>
+
+<form method='GET' action='{% url "hotlist" %}'>
+	{% csrf_token %}
+	<button>Show list </button>
+</form>
+<form method='GET' action='{% url "hotemptylist" %}'>
+	{% csrf_token %}
+	<button>Hide list </button>
+</form>
+
+{% if visibility == True %}
+	{% if jobs %}
+		<ul>
+			{% for job in jobs %}
+				<li>{{job.company}} - {{job.position}}</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+			<strong><p> Sorry, no jobs availabe. </p></strong>
+	{% endif %}
+{% endif %}

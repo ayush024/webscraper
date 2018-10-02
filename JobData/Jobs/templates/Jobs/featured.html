@@ -1,1 +1,26 @@
-<h2> Today's Featured Jobs </h2>
+<h2> Check out today's Featured Jobs </h2>
+<form action='{% url "featured" %}' method='POST'>
+	{% csrf_token %}
+	<button type='submit'>Extract Data</button>
+</form>
+
+<form method='GET' action='{% url "featuredlist" %}'>
+	{% csrf_token %}
+	<button>Show list </button>
+</form>
+<form method='GET' action='{% url "featuredemptylist" %}'>
+	{% csrf_token %}
+	<button>Hide list </button>
+</form>
+
+{% if visibility == True %}
+	{% if jobs %}
+		<ul>
+			{% for job in jobs %}
+				<li>{{job.company}} - {{job.position}}</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+			<strong><p> Sorry, no jobs availabe. </p></strong>
+	{% endif %}
+{% endif %}
